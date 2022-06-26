@@ -1,16 +1,4 @@
-function createDom(node) {
-  if(typeof node === 'string') {
-    return document.createTextNode(node);
-  }
-
-  const element = document.createElement(node.tag);
-
-  node.children
-    .map(createDom)
-    .forEach(element.appendChild.bind(element));
-
-  return element;
-}
+import { createDom, render } from './react'
 
 const vdom = {
   tag: 'p',
@@ -27,17 +15,23 @@ const vdom = {
       children: [
         {
           tag: 'li',
-          props: {},
+          props: {
+            style: "color:red"
+          },
           children: ["React 만들어 보기 1"]
         },     
         {
           tag: 'li',
-          props: {},
+          props: {
+            style: "color:blue"
+          },
           children: ["React 만들어 보기 2"]
         },     
         {
           tag: 'li',
-          props: {},
+          props: {
+            style: "color:green"
+          },
           children: ["React 만들어 보기 3"]
         }
       ]
@@ -45,6 +39,4 @@ const vdom = {
   ]
 }
 
-document
-  .querySelector("#root")
-  .appendChild(createDom(vdom))
+render(vdom, document.querySelector('#root'));
