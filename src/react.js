@@ -18,7 +18,9 @@ export function createDom(node) {
   return element;
 }
 
+// children 은 배열
 export function createElement(tag, props, ...children) {
+  props = props || {}
   return { tag, props, children }
 }
 
