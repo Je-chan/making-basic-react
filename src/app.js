@@ -1,5 +1,5 @@
 /* @jsx createElement */
-import { createDom, createElement, render } from './react'
+import { createElement, render } from './react'
 
 // Title 안에서 JSX 문법을 사용하고
 // h1 태그는 Transpiling 되면서 createElement 를 호출하게 되고
@@ -29,17 +29,20 @@ import { createDom, createElement, render } from './react'
  * 문자열로 처리할지, 함수로 처리할 지. 그것을 구분하기 위해서 첫 시작을 소문자, 대문자로 설정한 것
 */
 
-function Title() {
-  return <h1>React 만들기</h1>
+function Title(props) {
+  return <h1>{ props.children }</h1>
 }
 
+function Description(props) {
+  return <li style={`color:${props.color}`}>{props.children}</li>
+}
 
 const vdom = <p>
-  <Title></Title>
+  <Title>React를 잘 만들어 볼게요</Title>
   <ul>
-    <li style="color:red">첫 번째 아이템</li>
-    <li style="color:blue">두 번째 아이템</li>
-    <li style="color:green">세 번째 아이템</li>
+    <Description color="red">React 만들기 빨강</Description>
+    <Description color="blue">React 만들기 파랑</Description>
+    <Description color="green">React 만들기 초록</Description>
   </ul>
 </p>
 

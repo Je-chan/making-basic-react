@@ -21,7 +21,21 @@ export function createDom(node) {
 // children 은 배열
 export function createElement(tag, props, ...children) {
   props = props || {}
-  return { tag, props, children }
+
+  if(typeof tag === 'function') {
+    // React 의 디자인 방식은 children 도 props 의 일부분으로 들어가게 하는 것
+    if(children.length > 0) {
+      return tag({
+        ...props,
+        children: children.length === 1 ? children[0] : children
+      })
+    } else {
+      // 함수를 호출하면 JSX 문법이 return 되고 그 JSX 는 createElement 함수를 호출하게 될 것
+      return tag(props);
+    }
+  } else {
+    return { tag, props, children }
+  }
 }
 
 export function render(vdom, container) {
