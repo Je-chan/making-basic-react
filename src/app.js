@@ -37,7 +37,7 @@ function Description(props) {
   return <li style={`color:${props.color}`}>{props.children}</li>
 }
 
-const vdom = <p>
+const App = () => <p>
   <Title>React를 잘 만들어 볼게요</Title>
   <ul>
     <Description color="red">React 만들기 빨강</Description>
@@ -46,4 +46,4 @@ const vdom = <p>
   </ul>
 </p>
 
-render(vdom, document.querySelector('#root'));
+render(<App />, document.querySelector('#root'));
