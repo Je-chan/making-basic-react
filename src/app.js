@@ -1,5 +1,5 @@
 /* @jsx createElement */
-import { createElement, render } from './react'
+import { createElement, render, Component } from './react'
 
 // Title 안에서 JSX 문법을 사용하고
 // h1 태그는 Transpiling 되면서 createElement 를 호출하게 되고
@@ -29,6 +29,12 @@ import { createElement, render } from './react'
  * 문자열로 처리할지, 함수로 처리할 지. 그것을 구분하기 위해서 첫 시작을 소문자, 대문자로 설정한 것
 */
 
+class TitleClass extends Component {
+  render() { 
+    return <h1>{this.props.children}</h1>
+  }
+}
+
 function Title(props) {
   return <h1>{ props.children }</h1>
 }
@@ -39,6 +45,7 @@ function Description(props) {
 
 const App = () => <p>
   <Title>React를 잘 만들어 볼게요</Title>
+  <TitleClass>React를 클래스형 컴포넌트로 만들어 볼게요</TitleClass>
   <ul>
     <Description color="red">React 만들기 빨강</Description>
     <Description color="blue">React 만들기 파랑</Description>
