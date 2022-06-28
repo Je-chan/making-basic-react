@@ -52,6 +52,9 @@ export function createElement(tag, props, ...children) {
       }
     }
   } else {
+
+    // 얘가 Virtual DOM의 Input Data 역할. 이 객체의 특징은 Tree 구조라는 것
+    // 단일 객체를 가지고 Real DOM을 만들고 있다 (createDOM 으로)
     return { tag, props, children }
   }
 }
