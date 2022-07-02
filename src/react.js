@@ -1,3 +1,8 @@
+const hooks = [];
+
+let currentComponent = 0;
+
+
 // DOM API 를 조작하는 것은 대부분 여기에서 컨트롤
 // 바깥 쪽(app.js)에서 내부 구조에 관심을 두지 않도록 만드는 것
 
@@ -25,6 +30,21 @@ function makeProps(props, children) {
   }
 }
 
+function useState(initValue) {
+  // currentComponent++ 이 있은 후에 tag() 함수가 호출되므로 -1 을 해주어야 정상적으로 tag() 가 호출하는 hooks 를 호출할 수 있다
+  let position = currentComponent - 1;
+
+  if(!hooks[currentComponent]) {
+    hooks[currentComponent] = initValue 
+  }
+
+  const modifier = nextValue => {
+    hooks[currentComponent] = nextValue
+  }
+
+  return [hooks[currentComponent], modifier]
+}
+
 
 // 함수형 컴포넌트
 // children 은 배열
@@ -43,6 +63,10 @@ export function createElement(tag, props, ...children) {
       return instance.render();
     } 
     else {
+
+      hooks[currentComponent] = null
+      currentComponent++
+
       // React 의 디자인 방식은 children 도 props 의 일부분으로 들어가게 하는 것
       if(children.length > 0) {
         return tag(makeProps(props, children))
@@ -108,10 +132,9 @@ const render = (function () {
       prevDom = vdom
     } 
 
-    // diff 로직 
-    
+    // diff 로직이 있는 후에
+
+    // real dom
     container.appendChild(createDom(vdom))
   }
 })()
-
-
