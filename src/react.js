@@ -84,8 +84,34 @@ export class Component {
  * 라이프 사이클 메소드나 instance 를 만들어서 언제 마운트되고, 언제 삭제되고를 신경쓰지 않아도 됨
  */
 
+/**
+ * VDOM 의 장점?
+ * => UI 가 업데이트될 때. render 메소드가 새로 돈다
+ * => VDOM 이 이미 새롭게 만들어져 있고, 그것으로 기존의 DOM 과 교체돼야 함
+ * => 기존의 DOM 으로 만들게 된 객체도 갖고 있고 VDOM의 입력 내용도 받고 있다
+ * => Real DOM 과 새롭게 Real DOM으로 만들 VDOM 둘 다 갖고 있어서 이것을 비교할 수 있게 된다
+ * => 두 객체를 ㅂ교해서 다른 점만 Real DOM 에 반영한다
+ * 
+ * => 그 구조로 만들 수 있는 지점이 render
+ */
+
 export function render(vdom, container) {
   container.appendChild(createDom(vdom));
 }
+
+const render = (function () {
+  // 클로저를 만듦
+  let prevDom = null;
+
+  return function(vdom, container) {
+    if(prevDom === null) {
+      prevDom = vdom
+    } 
+
+    // diff 로직 
+    
+    container.appendChild(createDom(vdom))
+  }
+})()
 
 
