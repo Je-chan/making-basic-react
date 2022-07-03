@@ -119,11 +119,11 @@ export class Component {
  * => 그 구조로 만들 수 있는 지점이 render
  */
 
-export function render(vdom, container) {
+export function basicRender(vdom, container) {
   container.appendChild(createDom(vdom));
 }
 
-const render = (function () {
+export const render = (function () {
   // 클로저를 만듦
   let prevDom = null;
 
